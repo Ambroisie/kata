@@ -19,3 +19,13 @@ class Rover(BaseModel):
     pos: Vector = Vector(x=0, y=0)
     planet_size: Vector = Vector(x=100, y=100)
     dir: Direction = Direction.NORTH
+
+    def forward(self):
+        if self.dir == Direction.NORTH:
+            self.pos.y += 1
+        elif self.dir == Direction.SOUTH:
+            self.pos.y -= 1
+        elif self.dir == Direction.EAST:
+            self.pos.x += 1
+        elif self.dir == Direction.WEST:
+            self.pos.x -= 1
