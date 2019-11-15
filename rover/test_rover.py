@@ -92,3 +92,67 @@ def test_rover_can_wrap_over_east_west():
     )
     rov.forward()
     assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_go_backward_north():
+    rov = Rover(
+        pos=Vector(x=0, y=1), planet_size=Vector(x=10, y=10), dir=Direction.NORTH
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_go_backward_south():
+    rov = Rover(
+        pos=Vector(x=0, y=0), planet_size=Vector(x=10, y=10), dir=Direction.SOUTH
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=1)
+
+
+def test_rover_can_go_backward_west():
+    rov = Rover(
+        pos=Vector(x=0, y=0), planet_size=Vector(x=10, y=10), dir=Direction.WEST
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=1, y=0)
+
+
+def test_rover_can_go_backward_east():
+    rov = Rover(
+        pos=Vector(x=1, y=0), planet_size=Vector(x=10, y=10), dir=Direction.EAST
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_go_backward_wrapping_under_north_south():
+    rov = Rover(
+        pos=Vector(x=0, y=0), planet_size=Vector(x=10, y=10), dir=Direction.NORTH
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=9)
+
+
+def test_rover_can_go_backward_wrapping_over_north_south():
+    rov = Rover(
+        pos=Vector(x=0, y=9), planet_size=Vector(x=10, y=10), dir=Direction.SOUTH
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_go_backward_wrapping_under_east_west():
+    rov = Rover(
+        pos=Vector(x=0, y=0), planet_size=Vector(x=10, y=10), dir=Direction.EAST
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=9, y=0)
+
+
+def test_rover_can_go_backward_wrapping_over_east_west():
+    rov = Rover(
+        pos=Vector(x=9, y=0), planet_size=Vector(x=10, y=10), dir=Direction.WEST
+    )
+    rov.backward()
+    assert rov.pos == Vector(x=0, y=0)
