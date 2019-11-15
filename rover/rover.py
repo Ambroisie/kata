@@ -56,3 +56,7 @@ class Rover(BaseModel):
 
     def turn_right(self):
         self._turn(1)
+
+
+class Commander(BaseModel):
+    rover: Rover = Rover()

@@ -1,4 +1,4 @@
-from rover import Direction, Rover, Vector
+from rover import Commander, Direction, Rover, Vector
 
 
 def test_rover_constructor():
@@ -168,3 +168,22 @@ def test_rover_can_turn_right():
     rov = Rover(dir=Direction.NORTH)
     rov.turn_right()
     assert rov.dir == Direction.EAST
+
+
+def test_commander_constructor():
+    com = Commander(
+        rover=Rover(
+            pos=Vector(x=12, y=27), planet_size=Vector(x=100, y=100), dir=Direction.WEST
+        )
+    )
+    assert (
+        com.rover.pos == Vector(x=12, y=27)
+        and com.rover.planet_size == Vector(x=100, y=100)
+        and com.rover.dir == Direction.WEST
+    )
+
+
+def test_commander_default_values():
+    com = Commander()
+
+    assert com.rover == Rover()
