@@ -1,14 +1,14 @@
-from rover import Direction, Rover
+from rover import Direction, Rover, Vector
 
 
 def test_rover_constructor():
-    rov = Rover(pos=(0, 0), planet_size=(100, 100))
-    assert rov.pos == (0, 0) and rov.planet_size == (100, 100)
+    rov = Rover(pos={"x": 0, "y": 0}, planet_size={"x": 100, "y": 100})
+    assert rov.pos == Vector(x=0, y=0) and rov.planet_size == Vector(x=100, y=100)
 
 
 def test_rover_default_values():
     rov = Rover()
-    assert rov.pos == (0, 0) and rov.planet_size == (100, 100)
+    assert rov.pos == Vector(x=0, y=0) and rov.planet_size == Vector(x=100, y=100)
 
 
 def test_rover_has_direction():

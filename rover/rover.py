@@ -1,11 +1,11 @@
 import enum
-from dataclasses import dataclass
+
+from pydantic import BaseModel
 
 
-@dataclass
-class Vector:
-    x: int
-    y: int
+class Vector(BaseModel):
+    x: int = 0
+    y: int = 0
 
 
 class Direction(enum.Enum):
@@ -15,8 +15,7 @@ class Direction(enum.Enum):
     WEST = "W"
 
 
-@dataclass
-class Rover:
-    pos: Vector = (0, 0)
-    planet_size: Vector = (100, 100)
+class Rover(BaseModel):
+    pos: Vector = Vector(x=0, y=0)
+    planet_size: Vector = Vector(x=100, y=100)
     dir: Direction = Direction.NORTH
