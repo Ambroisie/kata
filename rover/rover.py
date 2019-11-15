@@ -9,5 +9,5 @@ class Vector:
 
 @dataclass
 class Rover:
-    pos: Vector
-    planet_size: Vector
+    pos: Vector = (0, 0)
+    planet_size: Vector = (100, 100)
