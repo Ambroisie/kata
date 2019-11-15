@@ -29,3 +29,8 @@ class Rover(BaseModel):
             self.pos.x += 1
         elif self.dir == Direction.WEST:
             self.pos.x -= 1
+
+        if self.pos.x < 0:
+            self.pos.x += self.planet_size.x
+        if self.pos.y < 0:
+            self.pos.y += self.planet_size.y
