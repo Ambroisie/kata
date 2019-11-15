@@ -34,3 +34,6 @@ class Rover(BaseModel):
             self.pos.x += self.planet_size.x
         if self.pos.y < 0:
             self.pos.y += self.planet_size.y
+
+        self.pos.x %= self.planet_size.x
+        self.pos.y %= self.planet_size.y

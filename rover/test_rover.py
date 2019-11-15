@@ -76,3 +76,19 @@ def test_rover_can_wrap_under_east_west():
     )
     rov.forward()
     assert rov.pos == Vector(x=9, y=0)
+
+
+def test_rover_can_wrap_over_north_south():
+    rov = Rover(
+        pos=Vector(x=0, y=9), planet_size=Vector(x=10, y=10), dir=Direction.NORTH
+    )
+    rov.forward()
+    assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_wrap_over_east_west():
+    rov = Rover(
+        pos=Vector(x=9, y=0), planet_size=Vector(x=10, y=10), dir=Direction.EAST
+    )
+    rov.forward()
+    assert rov.pos == Vector(x=0, y=0)
