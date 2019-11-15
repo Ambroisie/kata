@@ -156,3 +156,15 @@ def test_rover_can_go_backward_wrapping_over_east_west():
     )
     rov.backward()
     assert rov.pos == Vector(x=0, y=0)
+
+
+def test_rover_can_turn_left():
+    rov = Rover(dir=Direction.NORTH)
+    rov.turn_left()
+    assert rov.dir == Direction.WEST
+
+
+def test_rover_can_turn_right():
+    rov = Rover(dir=Direction.NORTH)
+    rov.turn_right()
+    assert rov.dir == Direction.EAST

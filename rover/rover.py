@@ -15,6 +15,9 @@ class Direction(enum.Enum):
     WEST = "W"
 
 
+DIRECTIONS = [Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST]
+
+
 class Rover(BaseModel):
     pos: Vector = Vector(x=0, y=0)
     planet_size: Vector = Vector(x=100, y=100)
@@ -43,3 +46,13 @@ class Rover(BaseModel):
 
     def backward(self):
         self._translate(-1)
+
+    def _turn(self, value):
+        index: int = DIRECTIONS.index(self.dir)
+        self.dir = DIRECTIONS[(index + value) % len(DIRECTIONS)]
+
+    def turn_left(self):
+        self._turn(-1)
+
+    def turn_right(self):
+        self._turn(1)
