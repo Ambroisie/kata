@@ -93,6 +93,13 @@ class Commander(BaseModel):
     rover: Rover = Rover()
     obstacles: List[Vector] = []
 
+    @root_validator()
+    def _rover_should_not_start_on_obstacle(cls, values):
+        rover, obstacles = values.get("rover"), values.get("obstacles")
+        if rover.pos in obstacles:
+            raise ValueError(f"Rover should not start on obstacle ({rover.pos})")
+        return values
+
     def parse_execute(self, commands: str):
         for command in commands:
             save: Vector = deepcopy(self.rover.pos)

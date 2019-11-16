@@ -247,3 +247,8 @@ def test_rover_oversize_x_construction():
 def test_rover_oversize_y_construction():
     with pytest.raises(ValidationError):
         _ = Rover(pos=Vector(x=0, y=11), planet_size=Vector(x=10, y=10))
+
+
+def test_commander_have_rover_start_on_obstacle():
+    with pytest.raises(ValidationError):
+        _ = Commander(obstacles=[Vector()])
