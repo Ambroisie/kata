@@ -54,7 +54,7 @@ class Rover(BaseModel):
             )
         return values
 
-    def _translate(self, value):
+    def _translate(self, value) -> None:
         if self.dir == Direction.NORTH:
             self.pos.y += value
         elif self.dir == Direction.SOUTH:
@@ -72,20 +72,20 @@ class Rover(BaseModel):
         self.pos.x %= self.planet_size.x
         self.pos.y %= self.planet_size.y
 
-    def forward(self):
+    def forward(self) -> None:
         self._translate(1)
 
-    def backward(self):
+    def backward(self) -> None:
         self._translate(-1)
 
-    def _turn(self, value):
+    def _turn(self, value) -> None:
         index: int = DIRECTIONS.index(self.dir)
         self.dir = DIRECTIONS[(index + value) % len(DIRECTIONS)]
 
-    def turn_left(self):
+    def turn_left(self) -> None:
         self._turn(-1)
 
-    def turn_right(self):
+    def turn_right(self) -> None:
         self._turn(1)
 
 
@@ -100,7 +100,7 @@ class Commander(BaseModel):
             raise ValueError(f"Rover should not start on obstacle ({rover.pos})")
         return values
 
-    def parse_execute(self, commands: str):
+    def parse_execute(self, commands: str) -> None:
         for command in commands:
             save: Vector = deepcopy(self.rover.pos)
             if command == "F":
