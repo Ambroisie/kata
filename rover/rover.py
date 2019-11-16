@@ -60,3 +60,14 @@ class Rover(BaseModel):
 
 class Commander(BaseModel):
     rover: Rover = Rover()
+
+    def parse_execute(self, commands: str):
+        for command in commands:
+            if command == "F":
+                self.rover.forward()
+            elif command == "B":
+                self.rover.backward()
+            elif command == "L":
+                self.rover.turn_left()
+            elif command == "R":
+                self.rover.turn_right()

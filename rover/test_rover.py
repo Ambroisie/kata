@@ -187,3 +187,33 @@ def test_commander_default_values():
     com = Commander()
 
     assert com.rover == Rover()
+
+
+def test_commander_can_parse_left():
+    com = Commander()
+    com.parse_execute("L")
+    assert com.rover == Rover(dir=Direction.WEST)
+
+
+def test_commander_can_parse_right():
+    com = Commander()
+    com.parse_execute("R")
+    assert com.rover == Rover(dir=Direction.EAST)
+
+
+def test_commmander_can_parse_forward():
+    com = Commander()
+    com.parse_execute("F")
+    assert com.rover == Rover(pos=Vector(x=0, y=1))
+
+
+def test_commmander_can_parse_backward():
+    com = Commander(rover=Rover(pos=Vector(x=0, y=1)))
+    com.parse_execute("B")
+    assert com.rover == Rover()
+
+
+def test_commander_complex_command():
+    com = Commander()
+    com.parse_execute("FRFRFLB")
+    assert com.rover == Rover(dir=Direction.EAST)
