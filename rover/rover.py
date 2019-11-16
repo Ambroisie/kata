@@ -2,7 +2,7 @@ import enum
 from copy import deepcopy
 from typing import List
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, root_validator, validator
 
 
 class Vector(BaseModel):
@@ -40,6 +40,19 @@ class Rover(BaseModel):
     pos: Vector = Vector(x=0, y=0)
     planet_size: Vector = Vector(x=100, y=100)
     dir: Direction = Direction.NORTH
+
+    @root_validator()
+    def _validate_pos(cls, values) -> None:
+        pos, planet_size = values.get("pos"), values.get("planet_size")
+        if pos.x > planet_size.x:
+            raise ValueError(
+                f"pos.x (= {pos.x}) should be under planet_size.x (= {planet_size.x})"
+            )
+        if pos.y > planet_size.y:
+            raise ValueError(
+                f"pos.y (= {pos.y}) should be under planet_size.y (= {planet_size.y})"
+            )
+        return values
 
     def _translate(self, value):
         if self.dir == Direction.NORTH:

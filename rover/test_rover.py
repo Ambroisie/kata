@@ -237,3 +237,13 @@ def test_rover_negative_x_construction():
 def test_rover_negative_y_construction():
     with pytest.raises(ValidationError):
         _ = Rover(pos=Vector(x=0, y=-1))
+
+
+def test_rover_oversize_x_construction():
+    with pytest.raises(ValidationError):
+        _ = Rover(pos=Vector(x=11, y=0), planet_size=Vector(x=10, y=10))
+
+
+def test_rover_oversize_y_construction():
+    with pytest.raises(ValidationError):
+        _ = Rover(pos=Vector(x=0, y=11), planet_size=Vector(x=10, y=10))
