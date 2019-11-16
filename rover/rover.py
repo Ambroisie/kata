@@ -1,4 +1,6 @@
 import enum
+from copy import deepcopy
+from typing import List
 
 from pydantic import BaseModel
 
@@ -13,6 +15,10 @@ class Direction(enum.Enum):
     SOUTH = "S"
     EAST = "E"
     WEST = "W"
+
+
+class ObstacleError(RuntimeError):
+    pass
 
 
 DIRECTIONS = [Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST]
@@ -60,9 +66,11 @@ class Rover(BaseModel):
 
 class Commander(BaseModel):
     rover: Rover = Rover()
+    obstacles: List[Vector] = []
 
     def parse_execute(self, commands: str):
         for command in commands:
+            save: Vector = deepcopy(self.rover.pos)
             if command == "F":
                 self.rover.forward()
             elif command == "B":
@@ -71,3 +79,6 @@ class Commander(BaseModel):
                 self.rover.turn_left()
             elif command == "R":
                 self.rover.turn_right()
+            if self.rover.pos in self.obstacles:
+                self.rover.pos = save
+                raise ObstacleError

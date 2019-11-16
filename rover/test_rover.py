@@ -1,4 +1,5 @@
-from rover import Commander, Direction, Rover, Vector
+import pytest
+from rover import Commander, Direction, ObstacleError, Rover, Vector
 
 
 def test_rover_constructor():
@@ -217,3 +218,10 @@ def test_commander_complex_command():
     com = Commander()
     com.parse_execute("FRFRFLB")
     assert com.rover == Rover(dir=Direction.EAST)
+
+
+def test_commander_command_with_obstacles():
+    com = Commander(obstacles=[Vector(x=1, y=0), Vector(x=1, y=2)])
+    with pytest.raises(ObstacleError):
+        com.parse_execute("FFRF")
+    assert com.rover == Rover(pos=Vector(x=0, y=2), dir=Direction.EAST)
