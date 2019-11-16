@@ -1,4 +1,6 @@
 import pytest
+from pydantic import ValidationError
+
 from rover import Commander, Direction, ObstacleError, Rover, Vector
 
 
@@ -225,3 +227,13 @@ def test_commander_command_with_obstacles():
     with pytest.raises(ObstacleError):
         com.parse_execute("FFRF")
     assert com.rover == Rover(pos=Vector(x=0, y=2), dir=Direction.EAST)
+
+
+def test_rover_negative_x_construction():
+    with pytest.raises(ValidationError):
+        _ = Rover(pos=Vector(x=-1, y=0))
+
+
+def test_rover_negative_y_construction():
+    with pytest.raises(ValidationError):
+        _ = Rover(pos=Vector(x=0, y=-1))

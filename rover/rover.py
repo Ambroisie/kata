@@ -2,12 +2,24 @@ import enum
 from copy import deepcopy
 from typing import List
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class Vector(BaseModel):
     x: int = 0
     y: int = 0
+
+    @validator("x")
+    def _x_must_be_positive(x):
+        if x < 0:
+            raise ValueError("x must be positive")
+        return x
+
+    @validator("y")
+    def _y_must_be_positive(y):
+        if y < 0:
+            raise ValueError("y must be positive")
+        return y
 
 
 class Direction(enum.Enum):
