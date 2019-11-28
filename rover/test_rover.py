@@ -1,6 +1,5 @@
 import pytest
 from pydantic import ValidationError
-
 from rover import Commander, Direction, ObstacleError, Rover, Vector
 
 
@@ -220,6 +219,12 @@ def test_commander_complex_command():
     com = Commander()
     com.parse_execute("FRFRFLB")
     assert com.rover == Rover(dir=Direction.EAST)
+
+
+def test_commander_unknown_command():
+    com = Commander()
+    with pytest.raises(ValueError):
+        com.parse_execute("A")
 
 
 def test_commander_command_with_obstacles():

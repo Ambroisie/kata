@@ -101,7 +101,7 @@ class Commander(BaseModel):
         return values
 
     def parse_execute(self, commands: str) -> None:
-        for command in commands:
+        for i, command in enumerate(commands):
             save: Vector = deepcopy(self.rover.pos)
             if command == "F":
                 self.rover.forward()
@@ -111,6 +111,8 @@ class Commander(BaseModel):
                 self.rover.turn_left()
             elif command == "R":
                 self.rover.turn_right()
+            else:
+                raise ValueError(f"Unknown command: '{command}' (index {i})")
             if self.rover.pos in self.obstacles:
                 self.rover.pos = save
                 raise ObstacleError
