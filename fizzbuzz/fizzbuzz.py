@@ -6,7 +6,7 @@ def fizzbuzzer(words: Dict[int, str]) -> Callable[[int], None]:
     def _fun(max: int) -> None:
         for i in range(1, max + 1):
             out = []
-            for div, word in words.items():
+            for div, word in sorted(words.items()):
                 if i % div == 0:
                     out.append(word)
             if len(out) > 0:

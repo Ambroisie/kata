@@ -68,3 +68,26 @@ def test_can_foobarbazz_customization(capsys):
             "foobarbazz",
         ],
     )
+
+
+def test_can_foobarbazz_customization_regardless_of_dict_order(capsys):
+    foobarbazz = fizzbuzzer({4: "bazz", 3: "bar", 2: "foo"})
+    list_output(
+        function=foobarbazz,
+        max=12,
+        capsys=capsys,
+        expected_list=[
+            1,
+            "foo",
+            "bar",
+            "foobazz",
+            5,
+            "foobar",
+            7,
+            "foobazz",
+            "bar",
+            "foo",
+            11,
+            "foobarbazz",
+        ],
+    )
