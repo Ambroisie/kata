@@ -1,0 +1,8 @@
+all:
+	pipenv run pytest
+
+all-mypy:
+	pipenv run pytest --mypy
+
+all-cov:
+	pipenv run pytest --cov
